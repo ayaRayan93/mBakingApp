@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ayaali.bakingapp.R;
 import com.example.ayaali.bakingapp.models.Recipe;
+import com.example.ayaali.bakingapp.widget.CollectionWidget;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +34,7 @@ import static android.content.ContentValues.TAG;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
+    List<String> mCollection;
     private List<Recipe> DataSet;
     private static Context context;
 
@@ -37,6 +42,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     {
         context=cont;
         DataSet = dataSet;
+        mCollection=new ArrayList<>();
 
     }
 
@@ -52,6 +58,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    initData(getPosition());
                     Context mContext=v.getContext();
                     Intent intent=new Intent("recipesActivity");
 
@@ -93,9 +100,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             Log.d("", "Element " + position + " set.");
             holder.getTitle().setText(DataSet.get(position).getName());
 
-
             // Feed image
-
 
         }
     }
@@ -103,5 +108,16 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     @Override
     public int getItemCount() {
         return DataSet.size();
+    }
+
+    private void initData(int index) {
+
+        Intent i = new Intent(context, CollectionWidget.class);
+        i.setAction("action");
+        Toast.makeText(context,"from the activity",
+                Toast.LENGTH_SHORT).show();//This works just fine
+        i.putExtra("title", "aa");
+        i.putExtra("ingredients", (Serializable) DataSet.get(index).getIngredients());
+        context.sendBroadcast(i);
     }
 }

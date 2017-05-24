@@ -106,8 +106,6 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> 
         {
             Log.d("", "steps " + position + " set.");
            holder.getTitle().setText(DataSet.get(position).getShortDescription());
-
-
         }
     }
 
