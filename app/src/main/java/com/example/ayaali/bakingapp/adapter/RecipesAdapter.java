@@ -102,6 +102,11 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
             // Feed image
 
+            if (!DataSet.get(position).getImage().equals(""))
+            {
+                //download image.
+                Picasso.with(context).load(DataSet.get(position).getImage()).into(holder.getPoster());
+            }
         }
     }
 

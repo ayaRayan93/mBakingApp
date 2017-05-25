@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.ayaali.bakingapp.R;
 import com.example.ayaali.bakingapp.models.Ingredient;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.action;
@@ -47,32 +49,20 @@ public class CollectionWidget extends AppWidgetProvider {
         Bundle extras = intent.getExtras();
         String title1 = extras.getString("title");
         ingredients= (List<Ingredient>) extras.get("ingredients");
+       // updateAppWidget(context, null, 0,"Ingredients");
         Toast.makeText(context, title1,Toast.LENGTH_LONG).show();//this gives an empty space
-        if (action != null ) {
-            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            ComponentName name = new ComponentName(context, WidgetDataProvider.class);
-            int[] appWidgetId = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
-            final int N = appWidgetId.length;
-            if (N < 1)
-            {
-                return ;
-            }
-            else {
-                int id = appWidgetId[N-1];
-                updateAppWidget(context, appWidgetManager, id ,title1);
-            }
-        }
+        Intent mintent = new Intent(context.getApplicationContext(),
+                WidgetService.class);
+        mintent.putExtra("in", (Serializable) ingredients);
+context.startService(mintent);
 
-        else {
-            super.onReceive(context, intent);
-        }
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId,"asd");
+            updateAppWidget(context, appWidgetManager, appWidgetId,"Ingredients");
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

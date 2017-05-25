@@ -2,8 +2,10 @@ package com.example.ayaali.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.Toast;
 
 import com.example.ayaali.bakingapp.models.Ingredient;
 
@@ -26,6 +28,11 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
     public WidgetDataProvider(Context context, Intent intent) {
         mContext = context;
+        Bundle extras = intent.getExtras();
+        mIngredient= (List<Ingredient>) extras.get("in");
+        Toast.makeText(context,"aya **",Toast.LENGTH_LONG).show();
+
+
     }
 
     @Override
@@ -77,7 +84,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     }
 
     private void initData() {
-        mIngredient=CollectionWidget.ingredients;
+
         mCollection.clear();
         try {
 
@@ -89,7 +96,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
             }
         }catch (Exception e)
         {
-
+            mCollection.add("sss");
         }
     }
 
