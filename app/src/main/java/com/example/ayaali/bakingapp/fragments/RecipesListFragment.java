@@ -114,11 +114,13 @@ public class RecipesListFragment extends Fragment {
     {
         connection();
         clearDataSet();
-        Iterator iterator = parseRecipes.parseStringToJson(mJsonFileContent).iterator();
-        while (iterator.hasNext()){
-            Recipe recipe = (Recipe) iterator.next();
-            dataSet.add(recipe);
-            recipesAdapter.notifyItemInserted(dataSet.size() - 1);
+        if (mJsonFileContent!=null) {
+            Iterator iterator = parseRecipes.parseStringToJson(mJsonFileContent).iterator();
+            while (iterator.hasNext()) {
+                Recipe recipe = (Recipe) iterator.next();
+                dataSet.add(recipe);
+                recipesAdapter.notifyItemInserted(dataSet.size() - 1);
+            }
         }
 
     }

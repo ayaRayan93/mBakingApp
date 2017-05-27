@@ -90,8 +90,9 @@ public class parseRecipes {
 
             return myRecipes;
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+
         }
 
 

@@ -119,8 +119,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         Intent i = new Intent(context, CollectionWidget.class);
         i.setAction("action");
-        Toast.makeText(context,"from the activity",
-                Toast.LENGTH_SHORT).show();//This works just fine
+       // Toast.makeText(context,"from the activity",
+         //       Toast.LENGTH_SHORT).show();//This works just fine
         i.putExtra("title", "aa");
         i.putExtra("ingredients", (Serializable) DataSet.get(index).getIngredients());
         context.sendBroadcast(i);
