@@ -28,6 +28,10 @@
 
     <android.support.v7.widget.CardView android:layout_height="wrap_content"
         android:layout_width="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stepImage"/>
         <TextView
             android:id="@+id/stepDescription"
             android:layout_width="wrap_content"

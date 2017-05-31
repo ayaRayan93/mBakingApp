@@ -66,6 +66,7 @@ String dd="";
         String title1 = extras.getString("title");
         ingredients= (List<Ingredient>) extras.get("ingredients");
        // updateAppWidget(context, null, 0,"Ingredients");
+        if(ingredients.size()>0)
        con=myIngredients();
        // Toast.makeText(context, title1,Toast.LENGTH_LONG).show();//this gives an empty space
         Intent mintent = new Intent(context.getApplicationContext(),

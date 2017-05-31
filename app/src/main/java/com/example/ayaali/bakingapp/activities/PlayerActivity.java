@@ -50,8 +50,13 @@ public class PlayerActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_player);
-    movieURI= this.getIntent().getStringExtra("movieURI");
-    playerView = (SimpleExoPlayerView) findViewById(R.id.video_view);
+    if(this.getIntent()!=null) {
+      movieURI = this.getIntent().getStringExtra("movieURI");
+    }
+    else {
+      movieURI = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
+    }
+      playerView = (SimpleExoPlayerView) findViewById(R.id.video_view);
   }
 
   private void initializePlayer() {
@@ -63,8 +68,14 @@ public class PlayerActivity extends AppCompatActivity {
 
     player.setPlayWhenReady(playWhenReady);
     player.seekTo(currentWindow, playbackPosition);
-
-    Uri uri = Uri.parse(movieURI);
+    Uri uri;
+    if(movieURI==null)
+    {
+       uri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+    }
+    else {
+       uri = Uri.parse(movieURI);
+    }
     MediaSource mediaSource = buildMediaSource(uri);
     player.prepare(mediaSource, true, false);
   }

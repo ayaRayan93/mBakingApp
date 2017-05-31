@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -34,6 +35,7 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.logging.LogRecord;
@@ -57,6 +59,7 @@ public class DetailsFragment extends Fragment {
     TextView stepDES;
     @BindView(R.id.button)Button nextStep;
     Step step;
+    @BindView(R.id.stepImage)ImageView imageView;
     @BindView(R.id.player)SimpleExoPlayerView playerView;
     List<Step>lStep= StepsAdapter.DataSet;
     int count;
@@ -83,7 +86,11 @@ public class DetailsFragment extends Fragment {
 
         mURI=step.getVideoURL();
         stepDES.setText(step.getDescription());
-
+        if (!step.getThumbnailURL().equals(""))
+        {
+            //download image.
+            Picasso.with(view.getContext()).load(step.getThumbnailURL()).into(imageView);
+        }
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +107,11 @@ public class DetailsFragment extends Fragment {
             if(count<lStep.size()-1) {
                 step = lStep.get(++count);
                 stepDES.setText(step.getDescription());
+                if (!step.getThumbnailURL().equals(""))
+                {
+                    //download image.
+                    Picasso.with(v.getContext()).load(step.getThumbnailURL()).into(imageView);
+                }
                 mURI=step.getVideoURL();
                 initializePlayer(mURI);
             }else{
