@@ -115,14 +115,7 @@ public class RecipesListFragment extends Fragment {
         mRecyclerView.setAdapter(recipesAdapter);
 
         clearDataSet();
-        if (mJsonFileContent!=null) {
-            Iterator iterator = parseRecipes.parseStringToJson(mJsonFileContent).iterator();
-            while (iterator.hasNext()) {
-                Recipe recipe = (Recipe) iterator.next();
-                dataSet.add(recipe);
-                recipesAdapter.notifyItemInserted(dataSet.size() - 1);
-            }
-        }
+
 
     }
     public  void connection() {
@@ -156,7 +149,14 @@ public class RecipesListFragment extends Fragment {
             {
                 Log.d("response", response);
                mJsonFileContent=response;
-
+                if (mJsonFileContent!=null) {
+                    Iterator iterator = parseRecipes.parseStringToJson(mJsonFileContent).iterator();
+                    while (iterator.hasNext()) {
+                        Recipe recipe = (Recipe) iterator.next();
+                        dataSet.add(recipe);
+                        recipesAdapter.notifyItemInserted(dataSet.size() - 1);
+                    }
+                }
             }
         }, new Response.ErrorListener() {
 
