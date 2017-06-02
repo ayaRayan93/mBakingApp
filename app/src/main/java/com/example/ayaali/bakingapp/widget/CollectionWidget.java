@@ -50,11 +50,13 @@ public class CollectionWidget extends AppWidgetProvider {
     static String myIngredients() {
 
 String dd="";
+        if(ingredients!=null) {
             for (int i = 0; i < ingredients.size(); i++) {
-                dd+=ingredients.get(i).getIngredient() + " " +
+                dd += ingredients.get(i).getIngredient() + " " +
                         ingredients.get(i).getQuantity() + " " +
-                        ingredients.get(i).getMeasure()+"\n";
+                        ingredients.get(i).getMeasure() + "\n";
             }
+        }
             return dd;
 
     }
@@ -63,33 +65,31 @@ String dd="";
         super.onReceive(context, intent);
         String action = intent.getAction();
         Bundle extras = intent.getExtras();
-        String title1 = extras.getString("title");
-        ingredients= (List<Ingredient>) extras.get("ingredients");
-       // updateAppWidget(context, null, 0,"Ingredients");
-        if(ingredients!=null)
-       con=myIngredients();
-       // Toast.makeText(context, title1,Toast.LENGTH_LONG).show();//this gives an empty space
-        Intent mintent = new Intent(context.getApplicationContext(),
-                WidgetService.class);
-        mintent.putExtra("in", (Serializable) ingredients);
-context.startService(mintent);
-        if (action != null ) {
-            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            ComponentName name = new ComponentName(context, CollectionWidget.class);
-            int[] appWidgetId = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
-            final int N = appWidgetId.length;
-            if (N < 1)
-            {
-                return ;
-            }
-            else {
-                int id = appWidgetId[N-1];
-                updateAppWidget(context, appWidgetManager, id ,con);
-            }
-        }
 
-        else {
-            super.onReceive(context, intent);
+
+       // updateAppWidget(context, null, 0,"Ingredients");
+        if( extras!=null) {
+            ingredients= (List<Ingredient>) extras.get("ingredients");
+            con = myIngredients();
+            // Toast.makeText(context, title1,Toast.LENGTH_LONG).show();//this gives an empty space
+            Intent mintent = new Intent(context.getApplicationContext(),
+                    WidgetService.class);
+            mintent.putExtra("in", (Serializable) ingredients);
+            context.startService(mintent);
+            if (action != null) {
+                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                ComponentName name = new ComponentName(context, CollectionWidget.class);
+                int[] appWidgetId = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
+                final int N = appWidgetId.length;
+                if (N < 1) {
+                    return;
+                } else {
+                    int id = appWidgetId[N - 1];
+                    updateAppWidget(context, appWidgetManager, id, con);
+                }
+            } else {
+                super.onReceive(context, intent);
+            }
         }
 
     }

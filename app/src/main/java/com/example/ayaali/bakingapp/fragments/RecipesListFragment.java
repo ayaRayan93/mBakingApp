@@ -74,9 +74,6 @@ public class RecipesListFragment extends Fragment {
         ButterKnife.bind(this, view);
         // dataSet=parseRecipes.parseStringToJson(mJsonFileContent);
        // dataSet.size();
-        mRecyclerView.setHasFixedSize(true);
-        recipesAdapter = new RecipesAdapter(getActivity(),dataSet);
-        mRecyclerView.setAdapter(recipesAdapter);
 
 
         mLayoutManager = new GridLayoutManager(getActivity(),2);
@@ -113,6 +110,10 @@ public class RecipesListFragment extends Fragment {
     public void fetchData()
     {
         connection();
+        mRecyclerView.setHasFixedSize(true);
+        recipesAdapter = new RecipesAdapter(getActivity(),dataSet);
+        mRecyclerView.setAdapter(recipesAdapter);
+
         clearDataSet();
         if (mJsonFileContent!=null) {
             Iterator iterator = parseRecipes.parseStringToJson(mJsonFileContent).iterator();

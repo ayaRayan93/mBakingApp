@@ -29,7 +29,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public WidgetDataProvider(Context context, Intent intent) {
         mContext = context;
         Bundle extras = intent.getExtras();
-        mIngredient= (List<Ingredient>) extras.get("in");
+     //   mIngredient= (List<Ingredient>) extras.get("in");
         //Toast.makeText(context,"aya **",Toast.LENGTH_LONG).show();
 
 
